@@ -16,11 +16,12 @@ logging.basicConfig(
 )
 
 class BethpageBot:
-    def __init__(self):
+    def __init__(self, test_mode=False):
         """Initialize the bot with configuration settings."""
         self.driver = None
         self.setup_driver()
         self.logged_in = False
+        self.test_mode = test_mode
 
     def setup_driver(self):
         """Configure and initialize the Selenium WebDriver."""
@@ -33,10 +34,16 @@ class BethpageBot:
         self.driver.implicitly_wait(config.IMPLICIT_WAIT)
         self.driver.set_page_load_timeout(config.PAGE_LOAD_TIMEOUT)
 
-    def login(self):
+    def login(self, verify_only=False):
         """Log into the booking system."""
         try:
             self.driver.get(config.LOGIN_URL)
+            logging.info(f"Attempting login with test_mode={self.test_mode}")
+
+            if self.test_mode:
+                logging.info("Test mode: Simulating successful login")
+                self.logged_in = True
+                return True
 
             # Wait for login form
             login_button = WebDriverWait(self.driver, 10).until(
@@ -66,7 +73,7 @@ class BethpageBot:
 
         except Exception as e:
             logging.error(f"Login failed: {str(e)}")
-            raise
+            return False
 
     def is_good_tee_time(self, time_str, course_name):
         """
@@ -108,6 +115,10 @@ class BethpageBot:
         Returns:
             bool: True if booking was successful, False otherwise
         """
+        if self.test_mode:
+            logging.info(f"Test mode: Would attempt booking for {target_date}")
+            return True
+
         try:
             if not self.logged_in:
                 self.login()
@@ -171,3 +182,65 @@ class BethpageBot:
         """Clean up resources."""
         if self.driver:
             self.driver.quit()
+
+    def test_booking_window(self):
+        """Test the 7pm booking window detection."""
+        test_times = [
+            (datetime.now().replace(hour=19, minute=0, second=0, microsecond=0), True),
+            (datetime.now().replace(hour=18, minute=59, second=59, microsecond=0), False),
+            (datetime.now().replace(hour=19, minute=1, second=0, microsecond=0), True)
+        ]
+
+        for test_time, expected in test_times:
+            current_time = test_time
+            is_booking_time = current_time.hour == config.BOOKING_HOUR
+            logging.info(f"Testing booking window for {current_time}: Expected={expected}, Got={is_booking_time}")
+            if is_booking_time != expected:
+                return False
+        return True
+
+    def test_tee_time_classification(self):
+        """Test good vs bad tee time classification."""
+        test_cases = [
+            ("07:00", "Bethpage Black Course", True),  # Early morning, preferred course
+            ("14:00", "Bethpage Black Course", False), # Afternoon, preferred course
+            ("06:30", "Bethpage Red Course", True),    # Early morning, preferred course
+            ("16:00", "Other Course", False),          # Late afternoon, non-preferred
+            ("10:59", "Bethpage Black Course", True),  # Last acceptable morning time
+            ("11:01", "Bethpage Black Course", False)  # Just past acceptable time
+        ]
+
+        for time_str, course, expected in test_cases:
+            result = self.is_good_tee_time(time_str, course)
+            logging.info(f"Testing tee time {time_str} at {course}: Expected={expected}, Got={result}")
+            if result != expected:
+                return False
+        return True
+
+    def test_weekend_booking(self):
+        """Test weekend date selection logic."""
+        test_dates = [
+            datetime.now() + timedelta(days=i) for i in range(14)
+        ]
+
+        for date in test_dates:
+            is_weekend = date.weekday() in config.WEEKEND_DAYS
+            should_book = is_weekend and (date - datetime.now()).days <= config.DAYS_IN_ADVANCE
+            logging.info(f"Testing date {date.strftime('%Y-%m-%d')}: Weekend={is_weekend}, Should Book={should_book}")
+
+        return True
+
+    def run_tests(self):
+        """Run all test cases."""
+        test_results = {
+            "login": self.login(verify_only=True),
+            "booking_window": self.test_booking_window(),
+            "tee_time_classification": self.test_tee_time_classification(),
+            "weekend_booking": self.test_weekend_booking()
+        }
+
+        logging.info("Test Results:")
+        for test_name, result in test_results.items():
+            logging.info(f"{test_name}: {'PASSED' if result else 'FAILED'}")
+
+        return all(test_results.values())

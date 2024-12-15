@@ -2,6 +2,7 @@
 import logging
 from datetime import datetime, timedelta
 import os
+import sys
 from dotenv import load_dotenv
 from bot import BethpageBot
 import config
@@ -32,38 +33,60 @@ def get_next_booking_dates():
 
     return booking_dates
 
-def main():
-    """Main function to run the booking bot."""
-    logging.info("Starting Bethpage booking bot")
-
-    # Create .env file with credentials
-    create_env_file()
-
-    # Load environment variables
-    load_dotenv()
+def test_mode():
+    """Run the bot in test mode to verify core functionality."""
+    logging.info("Starting Bethpage booking bot in TEST MODE")
 
     try:
-        bot = BethpageBot()
+        bot = BethpageBot(test_mode=True)
+        test_passed = bot.run_tests()
 
-        # Get next weekend dates to book
-        booking_dates = get_next_booking_dates()
-
-        for target_date in booking_dates:
-            logging.info(f"Preparing to book tee time for {target_date.strftime('%Y-%m-%d')}")
-
-            # Wait for the booking window to open
-            bot.wait_for_booking_window(target_date)
-
-            # Attempt booking with retries
-            for attempt in range(config.MAX_RETRIES):
-                if bot.book_tee_time(target_date):
-                    break
-                logging.info(f"Booking attempt {attempt + 1} failed, retrying...")
+        if test_passed:
+            logging.info("All tests passed successfully!")
+        else:
+            logging.error("Some tests failed. Check logs for details.")
 
     except Exception as e:
-        logging.error(f"Error in main: {str(e)}")
+        logging.error(f"Error in test mode: {str(e)}")
     finally:
-        bot.cleanup()
+        if 'bot' in locals():
+            bot.cleanup()
+
+def main():
+    """Main function to run the booking bot."""
+    if len(sys.argv) > 1 and sys.argv[1] == "--test":
+        test_mode()
+    else:
+        logging.info("Starting Bethpage booking bot")
+
+        # Create .env file with credentials
+        create_env_file()
+
+        # Load environment variables
+        load_dotenv()
+
+        try:
+            bot = BethpageBot()
+
+            # Get next weekend dates to book
+            booking_dates = get_next_booking_dates()
+
+            for target_date in booking_dates:
+                logging.info(f"Preparing to book tee time for {target_date.strftime('%Y-%m-%d')}")
+
+                # Wait for the booking window to open
+                bot.wait_for_booking_window(target_date)
+
+                # Attempt booking with retries
+                for attempt in range(config.MAX_RETRIES):
+                    if bot.book_tee_time(target_date):
+                        break
+                    logging.info(f"Booking attempt {attempt + 1} failed, retrying...")
+
+        except Exception as e:
+            logging.error(f"Error in main: {str(e)}")
+        finally:
+            bot.cleanup()
 
 if __name__ == "__main__":
     main()

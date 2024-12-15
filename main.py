@@ -1,0 +1,69 @@
+"""Main script to run the Bethpage tee time booking bot."""
+import logging
+from datetime import datetime, timedelta
+import os
+from dotenv import load_dotenv
+from bot import BethpageBot
+import config
+
+def create_env_file():
+    """Create .env file with credentials if it doesn't exist."""
+    if not os.path.exists('.env'):
+        with open('.env', 'w') as f:
+            f.write(f'BETHPAGE_EMAIL="{os.environ.get("BETHPAGE_EMAIL", "frmccann97@gmail.com")}"\n')
+            f.write(f'BETHPAGE_PASSWORD="{os.environ.get("BETHPAGE_PASSWORD", "chq8fpe*qfq*phk0YQA")}"\n')
+
+def get_next_booking_dates():
+    """
+    Get the next Saturday and Sunday dates that will be available for booking.
+
+    Returns:
+        list: List of datetime objects for the next bookable weekend days
+    """
+    today = datetime.now()
+    booking_dates = []
+
+    # Look ahead config.DAYS_IN_ADVANCE + 7 days to find next weekend days
+    for i in range(config.DAYS_IN_ADVANCE, config.DAYS_IN_ADVANCE + 7):
+        future_date = today + timedelta(days=i)
+        # Check if it's a weekend day (5 = Saturday, 6 = Sunday)
+        if future_date.weekday() in config.WEEKEND_DAYS:
+            booking_dates.append(future_date)
+
+    return booking_dates
+
+def main():
+    """Main function to run the booking bot."""
+    logging.info("Starting Bethpage booking bot")
+
+    # Create .env file with credentials
+    create_env_file()
+
+    # Load environment variables
+    load_dotenv()
+
+    try:
+        bot = BethpageBot()
+
+        # Get next weekend dates to book
+        booking_dates = get_next_booking_dates()
+
+        for target_date in booking_dates:
+            logging.info(f"Preparing to book tee time for {target_date.strftime('%Y-%m-%d')}")
+
+            # Wait for the booking window to open
+            bot.wait_for_booking_window(target_date)
+
+            # Attempt booking with retries
+            for attempt in range(config.MAX_RETRIES):
+                if bot.book_tee_time(target_date):
+                    break
+                logging.info(f"Booking attempt {attempt + 1} failed, retrying...")
+
+    except Exception as e:
+        logging.error(f"Error in main: {str(e)}")
+    finally:
+        bot.cleanup()
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,144 @@
+2024-12-15 21:26:16,918 - INFO - Starting Bethpage booking bot
+2024-12-15 21:26:22,544 - INFO - Preparing to book tee time for 2024-12-22
+2024-12-15 21:26:22,544 - INFO - Booking window open for 2024-12-22 21:26:22.543852
+2024-12-15 21:26:32,751 - ERROR - Login failed: Message: 
+Stacktrace:
+#0 0x55c60e70d31a <unknown>
+#1 0x55c60e2236e0 <unknown>
+#2 0x55c60e2723e6 <unknown>
+#3 0x55c60e272681 <unknown>
+#4 0x55c60e2b7b04 <unknown>
+#5 0x55c60e29648d <unknown>
+#6 0x55c60e2b4ed7 <unknown>
+#7 0x55c60e296203 <unknown>
+#8 0x55c60e264cc0 <unknown>
+#9 0x55c60e265c9e <unknown>
+#10 0x55c60e6dad0b <unknown>
+#11 0x55c60e6dec92 <unknown>
+#12 0x55c60e6c7b3c <unknown>
+#13 0x55c60e6df807 <unknown>
+#14 0x55c60e6ad0df <unknown>
+#15 0x55c60e6fc578 <unknown>
+#16 0x55c60e6fc740 <unknown>
+#17 0x55c60e70c196 <unknown>
+#18 0x7fa7a1b01ac3 <unknown>
+
+2024-12-15 21:26:32,752 - ERROR - Error booking tee time: Message: 
+Stacktrace:
+#0 0x55c60e70d31a <unknown>
+#1 0x55c60e2236e0 <unknown>
+#2 0x55c60e2723e6 <unknown>
+#3 0x55c60e272681 <unknown>
+#4 0x55c60e2b7b04 <unknown>
+#5 0x55c60e29648d <unknown>
+#6 0x55c60e2b4ed7 <unknown>
+#7 0x55c60e296203 <unknown>
+#8 0x55c60e264cc0 <unknown>
+#9 0x55c60e265c9e <unknown>
+#10 0x55c60e6dad0b <unknown>
+#11 0x55c60e6dec92 <unknown>
+#12 0x55c60e6c7b3c <unknown>
+#13 0x55c60e6df807 <unknown>
+#14 0x55c60e6ad0df <unknown>
+#15 0x55c60e6fc578 <unknown>
+#16 0x55c60e6fc740 <unknown>
+#17 0x55c60e70c196 <unknown>
+#18 0x7fa7a1b01ac3 <unknown>
+
+2024-12-15 21:26:32,752 - INFO - Booking attempt 1 failed, retrying...
+2024-12-15 21:26:38,050 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f90e98735f0>: Failed to establish a new connection: [Errno 111] Connection refused')': /session/0d6ee9bee2866a7b2e2eb5be6a680bf8
+2024-12-15 21:26:38,050 - WARNING - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f90e9872c30>: Failed to establish a new connection: [Errno 111] Connection refused')': /session/0d6ee9bee2866a7b2e2eb5be6a680bf8
+2024-12-15 21:26:38,051 - WARNING - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f90e9873770>: Failed to establish a new connection: [Errno 111] Connection refused')': /session/0d6ee9bee2866a7b2e2eb5be6a680bf8
+2024-12-15 21:28:15,844 - INFO - Starting Bethpage booking bot in TEST MODE
+2024-12-15 21:28:16,297 - INFO - Attempting login with test_mode=True
+2024-12-15 21:28:16,297 - INFO - Test mode: Simulating successful login
+2024-12-15 21:28:16,297 - INFO - Testing booking window for 2024-12-15 19:00:00: Expected=True, Got=True
+2024-12-15 21:28:16,297 - INFO - Testing booking window for 2024-12-15 18:59:59: Expected=False, Got=False
+2024-12-15 21:28:16,297 - INFO - Testing booking window for 2024-12-15 19:01:00: Expected=True, Got=True
+2024-12-15 21:28:16,301 - INFO - Testing tee time 07:00 at Bethpage Black Course: Expected=True, Got=True
+2024-12-15 21:28:16,301 - INFO - Testing tee time 14:00 at Bethpage Black Course: Expected=False, Got=False
+2024-12-15 21:28:16,301 - INFO - Testing tee time 06:30 at Bethpage Red Course: Expected=True, Got=True
+2024-12-15 21:28:16,301 - INFO - Testing tee time 16:00 at Other Course: Expected=False, Got=False
+2024-12-15 21:28:16,302 - INFO - Testing tee time 10:59 at Bethpage Black Course: Expected=True, Got=True
+2024-12-15 21:28:16,302 - INFO - Testing tee time 11:01 at Bethpage Black Course: Expected=False, Got=False
+2024-12-15 21:28:16,302 - INFO - Testing date 2024-12-15: Weekend=True, Should Book=True
+2024-12-15 21:28:16,302 - INFO - Testing date 2024-12-16: Weekend=False, Should Book=False
+2024-12-15 21:28:16,302 - INFO - Testing date 2024-12-17: Weekend=False, Should Book=False
+2024-12-15 21:28:16,302 - INFO - Testing date 2024-12-18: Weekend=False, Should Book=False
+2024-12-15 21:28:16,302 - INFO - Testing date 2024-12-19: Weekend=False, Should Book=False
+2024-12-15 21:28:16,302 - INFO - Testing date 2024-12-20: Weekend=False, Should Book=False
+2024-12-15 21:28:16,302 - INFO - Testing date 2024-12-21: Weekend=True, Should Book=True
+2024-12-15 21:28:16,302 - INFO - Testing date 2024-12-22: Weekend=True, Should Book=True
+2024-12-15 21:28:16,302 - INFO - Testing date 2024-12-23: Weekend=False, Should Book=False
+2024-12-15 21:28:16,302 - INFO - Testing date 2024-12-24: Weekend=False, Should Book=False
+2024-12-15 21:28:16,302 - INFO - Testing date 2024-12-25: Weekend=False, Should Book=False
+2024-12-15 21:28:16,302 - INFO - Testing date 2024-12-26: Weekend=False, Should Book=False
+2024-12-15 21:28:16,302 - INFO - Testing date 2024-12-27: Weekend=False, Should Book=False
+2024-12-15 21:28:16,302 - INFO - Testing date 2024-12-28: Weekend=True, Should Book=False
+2024-12-15 21:28:16,302 - INFO - Test Results:
+2024-12-15 21:28:16,302 - INFO - login: PASSED
+2024-12-15 21:28:16,302 - INFO - booking_window: PASSED
+2024-12-15 21:28:16,302 - INFO - tee_time_classification: PASSED
+2024-12-15 21:28:16,302 - INFO - weekend_booking: PASSED
+2024-12-15 21:28:16,302 - INFO - All tests passed successfully!
+2024-12-15 21:28:43,014 - INFO - Starting Bethpage booking bot in TEST MODE
+2024-12-15 21:28:43,393 - INFO - Attempting login with test_mode=True
+2024-12-15 21:28:43,394 - INFO - Test mode: Simulating successful login
+2024-12-15 21:28:43,394 - INFO - Testing booking window for 2024-12-15 19:00:00: Expected=True, Got=True
+2024-12-15 21:28:43,394 - INFO - Testing booking window for 2024-12-15 18:59:59: Expected=False, Got=False
+2024-12-15 21:28:43,394 - INFO - Testing booking window for 2024-12-15 19:01:00: Expected=True, Got=True
+2024-12-15 21:28:43,396 - INFO - Testing tee time 07:00 at Bethpage Black Course: Expected=True, Got=True
+2024-12-15 21:28:43,396 - INFO - Testing tee time 14:00 at Bethpage Black Course: Expected=False, Got=False
+2024-12-15 21:28:43,396 - INFO - Testing tee time 06:30 at Bethpage Red Course: Expected=True, Got=True
+2024-12-15 21:28:43,396 - INFO - Testing tee time 16:00 at Other Course: Expected=False, Got=False
+2024-12-15 21:28:43,396 - INFO - Testing tee time 10:59 at Bethpage Black Course: Expected=True, Got=True
+2024-12-15 21:28:43,396 - INFO - Testing tee time 11:01 at Bethpage Black Course: Expected=False, Got=False
+2024-12-15 21:28:43,396 - INFO - Testing date 2024-12-15: Weekend=True, Should Book=True
+2024-12-15 21:28:43,396 - INFO - Testing date 2024-12-16: Weekend=False, Should Book=False
+2024-12-15 21:28:43,396 - INFO - Testing date 2024-12-17: Weekend=False, Should Book=False
+2024-12-15 21:28:43,396 - INFO - Testing date 2024-12-18: Weekend=False, Should Book=False
+2024-12-15 21:28:43,396 - INFO - Testing date 2024-12-19: Weekend=False, Should Book=False
+2024-12-15 21:28:43,397 - INFO - Testing date 2024-12-20: Weekend=False, Should Book=False
+2024-12-15 21:28:43,397 - INFO - Testing date 2024-12-21: Weekend=True, Should Book=True
+2024-12-15 21:28:43,397 - INFO - Testing date 2024-12-22: Weekend=True, Should Book=True
+2024-12-15 21:28:43,397 - INFO - Testing date 2024-12-23: Weekend=False, Should Book=False
+2024-12-15 21:28:43,397 - INFO - Testing date 2024-12-24: Weekend=False, Should Book=False
+2024-12-15 21:28:43,397 - INFO - Testing date 2024-12-25: Weekend=False, Should Book=False
+2024-12-15 21:28:43,397 - INFO - Testing date 2024-12-26: Weekend=False, Should Book=False
+2024-12-15 21:28:43,397 - INFO - Testing date 2024-12-27: Weekend=False, Should Book=False
+2024-12-15 21:28:43,397 - INFO - Testing date 2024-12-28: Weekend=True, Should Book=False
+2024-12-15 21:28:43,397 - INFO - Test Results:
+2024-12-15 21:28:43,397 - INFO - login: PASSED
+2024-12-15 21:28:43,397 - INFO - booking_window: PASSED
+2024-12-15 21:28:43,397 - INFO - tee_time_classification: PASSED
+2024-12-15 21:28:43,397 - INFO - weekend_booking: PASSED
+2024-12-15 21:28:43,397 - INFO - All tests passed successfully!
+2024-12-15 22:29:37,660 - INFO - Starting Bethpage booking bot in TEST MODE
+2024-12-15 22:29:46,187 - ERROR - Error in test mode: Message: Service /home/francismccann/.cache/selenium/chromedriver/linux64/131.0.6778.108/chromedriver unexpectedly exited. Status code was: 127
+
+2024-12-15 22:30:04,572 - INFO - Starting Bethpage booking bot
+2024-12-15 22:30:04,603 - ERROR - Error in main: Message: Service /home/francismccann/.cache/selenium/chromedriver/linux64/131.0.6778.108/chromedriver unexpectedly exited. Status code was: 127
+
+2024-12-15 22:31:21,170 - INFO - Starting Bethpage booking bot
+2024-12-15 22:31:21,200 - ERROR - Error in main: Message: Service /home/francismccann/.cache/selenium/chromedriver/linux64/131.0.6778.108/chromedriver unexpectedly exited. Status code was: 127
+
+2024-12-15 22:31:21,203 - ERROR - Bot instance is None, unable to cleanup
+2024-12-15 22:32:10,070 - INFO - Starting Bethpage booking bot
+2024-12-15 22:32:10,101 - ERROR - Error in main: Message: Service /home/francismccann/.cache/selenium/chromedriver/linux64/131.0.6778.108/chromedriver unexpectedly exited. Status code was: 127
+
+2024-12-15 22:32:10,104 - ERROR - Bot instance is None, unable to cleanup
+2024-12-15 22:32:14,104 - INFO - Starting Bethpage booking bot
+2024-12-15 22:32:14,134 - ERROR - Error in main: Message: Service /home/francismccann/.cache/selenium/chromedriver/linux64/131.0.6778.108/chromedriver unexpectedly exited. Status code was: 127
+
+2024-12-15 22:32:14,138 - ERROR - Bot instance is None, unable to cleanup
+2024-12-15 22:32:20,452 - INFO - Starting Bethpage booking bot
+2024-12-15 22:32:20,483 - ERROR - Error in main: Message: Service /home/francismccann/.cache/selenium/chromedriver/linux64/131.0.6778.108/chromedriver unexpectedly exited. Status code was: 127
+
+2024-12-15 22:32:20,486 - ERROR - Bot instance is None, unable to cleanup
+2024-12-15 22:33:01,020 - INFO - Starting Bethpage booking bot
+2024-12-15 22:33:01,050 - ERROR - Error in main: Message: Service /home/francismccann/.cache/selenium/chromedriver/linux64/131.0.6778.108/chromedriver unexpectedly exited. Status code was: 127
+
+2024-12-15 22:33:01,054 - ERROR - Bot instance is None, unable to cleanup
+2024-12-16 02:59:57,986 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectionResetError(104, 'Connection reset by peer')': /session/698d213c7291abef108f8fc0af9977ba
+2024-12-16 02:59:57,987 - WARNING - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7ff5b7751400>: Failed to establish a new connection: [Errno 111] Connection refused')': /session/698d213c7291abef108f8fc0af9977ba
+2024-12-16 02:59:57,988 - WARNING - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7ff5b7782ea0>: Failed to establish a new connection: [Errno 111] Connection refused')': /session/698d213c7291abef108f8fc0af9977ba

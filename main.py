@@ -6,6 +6,8 @@ import sys
 from dotenv import load_dotenv
 from bot import BethpageBot
 import config
+print("test")
+logging.basicConfig(level=print)
 
 def create_env_file():
     """Create .env file with credentials if it doesn't exist."""
@@ -35,19 +37,19 @@ def get_next_booking_dates():
 
 def test_mode():
     """Run the bot in test mode to verify core functionality."""
-    logging.info("Starting Bethpage booking bot in TEST MODE")
+    print("Starting Bethpage booking bot in TEST MODE")
 
     try:
         bot = BethpageBot(test_mode=True)
         test_passed = bot.run_tests()
 
         if test_passed:
-            logging.info("All tests passed successfully!")
+            print("All tests passed successfully!")
         else:
-            logging.error("Some tests failed. Check logs for details.")
+            print("Some tests failed. Check logs for details.")
 
     except Exception as e:
-        logging.error(f"Error in test mode: {str(e)}")
+        print(f"Error in test mode: {str(e)}")
     finally:
         if 'bot' in locals():
             bot.cleanup()
@@ -55,10 +57,11 @@ def test_mode():
 def main():
     """Main function to run the booking bot."""
     if len(sys.argv) > 1 and sys.argv[1] == "--test":
+
         test_mode()
     else:
-        logging.info("Starting Bethpage booking bot")
-
+        print("Starting Bethpage booking bot")
+        bot = None
         # Create .env file with credentials
         create_env_file()
 
@@ -72,7 +75,7 @@ def main():
             booking_dates = get_next_booking_dates()
 
             for target_date in booking_dates:
-                logging.info(f"Preparing to book tee time for {target_date.strftime('%Y-%m-%d')}")
+                print(f"Preparing to book tee time for {target_date.strftime('%Y-%m-%d')}")
 
                 # Wait for the booking window to open
                 bot.wait_for_booking_window(target_date)
@@ -81,12 +84,17 @@ def main():
                 for attempt in range(config.MAX_RETRIES):
                     if bot.book_tee_time(target_date):
                         break
-                    logging.info(f"Booking attempt {attempt + 1} failed, retrying...")
+                    print(f"Booking attempt {attempt + 1} failed, retrying...")
 
         except Exception as e:
-            logging.error(f"Error in main: {str(e)}")
+            print(f"Error in main: {str(e)}")
         finally:
-            bot.cleanup()
+            if bot is not None:
+                bot.cleanup()
+            else:
+                print("Bot instance is None, unable to cleanup")
 
 if __name__ == "__main__":
+    print("Starting main")
     main()
+    print("Finished main")

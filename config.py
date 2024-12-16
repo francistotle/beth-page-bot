@@ -20,8 +20,8 @@ DAYS_IN_ADVANCE = 7
 
 # Tee Time Preferences
 WEEKEND_DAYS = [5, 6]  # Saturday and Sunday (0 = Monday, 6 = Sunday)
-EARLIEST_TEE_TIME = "06:00"  # Earliest acceptable tee time
-LATEST_TEE_TIME = "11:00"   # Latest acceptable tee time
+EARLIEST_TEE_TIME = "09:00"  # Earliest acceptable tee time
+LATEST_TEE_TIME = "14:00"   # Latest acceptable tee time
 PREFERRED_COURSES = ["Bethpage Black Course", "Bethpage Red Course"]
 
 # Selenium Configuration
